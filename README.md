@@ -1,11 +1,9 @@
-Proyecto base para el segundo reto
+# Reto 2: shopping cart
 
-El código incluye comentarios que explican la estructura del proyecto y los puntos en los que se tiene que trabajar están marcados con un TODO.
+Reto resuelto utilizando GetX en Flutter, plantilla original: https://github.com/MisionTIC4b/f_shopping_app_template
 
-El siguiente es un demo de la interfaz a la que se debe llegar (funcionalidades adicionales o mejoras a la interfaz son permitidas):
+Se han completado los TODO, y se han cambiado los stateful widgets a stateless widgets ya que GetX los hace innecesarios, ahorrando así más ram.
 
-![shoppingApp](https://user-images.githubusercontent.com/4458129/173839525-218900ed-9bcd-4f6f-9158-0b02dd9d7707.gif)
+A continuación una Demo de la app:
 
-Solución:
-
-https://github.com/MisionTIC4b/f_shopping_app
+<img src="https://user-images.githubusercontent.com/96201625/202553377-915c27aa-34ed-4c09-8c83-4b5265d79f21.gif" width="250">
