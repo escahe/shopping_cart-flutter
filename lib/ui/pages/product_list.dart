@@ -5,18 +5,12 @@ import '../../domain/product.dart';
 import '../Widgets/banner.dart';
 import '../controllers/shopping_controller.dart';
 
-class ProductList extends StatefulWidget {
-  const ProductList({Key? key}) : super(key: key);
-
-  @override
-  State<ProductList> createState() => _ProductListState();
-}
-
-class _ProductListState extends State<ProductList> {
-  ShoppingController shoppingController = Get.find();
+class ProductList extends StatelessWidget {
+  const ProductList({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ShoppingController shoppingController = Get.find();
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -24,16 +18,17 @@ class _ProductListState extends State<ProductList> {
             Stack(
               children: [const CustomBanner(50), customAppBar()],
             ),
-            // TODO
             // aquí debemos rodear el widget Expanded en un Obx para
             // observar los cambios en la lista de entries del shoppingController
-            Expanded(
-              child: ListView.builder(
-                  padding: const EdgeInsets.all(8),
-                  itemCount: shoppingController.entries.length,
-                  itemBuilder: (context, index) {
-                    return _row(shoppingController.entries[index], index);
-                  }),
+            Obx(
+              () => Expanded(
+                child: ListView.builder(
+                    padding: const EdgeInsets.all(8),
+                    itemCount: shoppingController.entries.length,
+                    itemBuilder: (context, index) {
+                      return _row(shoppingController.entries[index], index);
+                    }),
+              ),
             )
           ],
         ),
@@ -64,40 +59,45 @@ class _ProductListState extends State<ProductList> {
   }
 
   Widget _card(Product product) {
+    ShoppingController shoppingController = Get.find();
+
     return Card(
       margin: const EdgeInsets.all(4.0),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         Text(product.name),
-        Text(product.price.toString()),
+        Text('\$${product.price}'),
         Column(
           children: [
-            IconButton(
-                onPressed: () {
-                  // TODO
-                  // aquí debemos llamar al método del controlador que
-                  // incrementa el número de unidades del producto
-                  // pasandole el product.id
-                },
-                icon: const Icon(Icons.arrow_upward)),
-            IconButton(
-                onPressed: () {
-                  // TODO
-                  // aquí debemos llamar al método del controlador que
-                  // disminuye el número de unidades del producto
-                  // pasandole el product.id
-                },
-                icon: const Icon(Icons.arrow_downward))
-          ],
-        ),
-        Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text("Quantity"),
-            ),
+            const Text('Quantity'),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(product.quantity.toString()),
+              padding: const EdgeInsets.all(0),
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // aquí debemos llamar al método del controlador que
+                      // incrementa el número de unidades del producto
+                      // pasandole el product.id
+                      shoppingController.agregarProducto(product.id);
+                    },
+                    icon: const Icon(Icons.arrow_upward),
+                    iconSize: 15,
+                    tooltip: "increase quantity",
+                  ),
+                  Text('${product.quantity}'),
+                  IconButton(
+                    onPressed: () {
+                      // aquí debemos llamar al método del controlador que
+                      // disminuye el número de unidades del producto
+                      // pasandole el product.id
+                      shoppingController.quitarProducto(product.id);
+                    },
+                    icon: const Icon(Icons.arrow_downward),
+                    iconSize: 15,
+                    tooltip: "decrease quantity",
+                  )
+                ],
+              ),
             ),
           ],
         )

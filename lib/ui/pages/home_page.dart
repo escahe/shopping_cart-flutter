@@ -45,7 +45,7 @@ class HomePage extends StatelessWidget {
         CustomBanner(200),
         CircleAvatar(
           backgroundImage:
-              NetworkImage("https://randomuser.me/api/portraits/men/75.jpg"),
+              NetworkImage("https://randomuser.me/api/portraits/men/3.jpg"),
           radius: 60.0,
         )
       ],
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            onTap: () => Get.to(() => ProductList(),
+            onTap: () => Get.to(() => const ProductList(),
                 transition: Transition.circularReveal,
                 duration: const Duration(seconds: 1)),
             child: const Icon(
